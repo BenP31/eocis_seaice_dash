@@ -25,7 +25,7 @@ function plot() {
                             'field': 'season_year',
                             'legend': {'title': 'Season year'},
                             'type': 'nominal',
-                            'scale': {"scheme":"redyellowblue", 'sort':"descending"},
+                            'scale': {"scheme":"blues", 'reverse':true, 'sort':"descending"},
                             'sort': "descending",
                         },
                         'opacity': {
@@ -75,7 +75,7 @@ function plot() {
                         },
                         'opacity': {
                             'condition': {'param': 'year_select', 'value': 1}, 
-                            'value': 0.05
+                            'value': 0.001
                         },
                         'tooltip': [
                             {'field': 'thickness', 'type': 'quantitative'},
