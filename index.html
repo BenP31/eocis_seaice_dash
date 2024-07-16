@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arctic Sea Ice thickness</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.2"></script>
+    <script src="main.js"></script>
+    <link rel="Stylesheet" href="main.css">
+</head>
+<body onload="main()">
+    <div id="flexroot">
+        <h1>Mean Sea Ice Thickness per year</h1>
+        <p>Need new text here &#128005;</p>
+        <p>This app is based on <a href="https://eocis.org/dataset-arctic-sea-ice/">the EOCIS Arctic Sea Ice thickness dataset.</a></p>
+        <a href="processed_files/time_series_data.csv" download="time_series_data.csv">Download the data (CSV)</a>
+        <div id="vizdiv">
+        </div>
+    </div>
+</body>
+</html>

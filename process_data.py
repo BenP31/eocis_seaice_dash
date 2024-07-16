@@ -129,9 +129,7 @@ if __name__ == "__main__":
                 "year": file_year,
                 "season_year": int(file_year) - month_key[str(file_month)]["winter_year"],
                 "month": midpoint.strftime("%B"),
-                "season_month": month_key[str(file_month)]["month"],
                 "region": "Arctic",
-                "period": fmt_year,
                 "thickness": mean_thickness,
             }
         )
