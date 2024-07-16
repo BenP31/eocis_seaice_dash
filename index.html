@@ -6,7 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.2"></script>
-    <script src="main.js"></script>
+    <script src="time_series.js"></script>
+    <script defer src="image_viewer.js"></script>
     <link rel="Stylesheet" href="main.css">
 </head>
 <body onload="main()">
@@ -14,9 +15,15 @@
         <h1>Mean Sea Ice Thickness per year</h1>
         <p>Need new text here &#128005;</p>
         <p>This app is based on <a href="https://eocis.org/dataset-arctic-sea-ice/">the EOCIS Arctic Sea Ice thickness dataset.</a></p>
-        <a href="processed_files/time_series_data.csv" download="time_series_data.csv">Download the data (CSV)</a>
+        <a href="sea_ice_thickness.csv" download="sea_ice_thickness.csv">Download the data (CSV)</a>
         <div id="vizdiv">
         </div>
+        <h2>Select a time period</h2>
+        <select id="imageSelect">
+            <option value="">--Select an Image--</option>
+        </select>
+        <br><br>
+        <img id="displayImage" src="" alt="Selected Image" style="max-width: 100%; height: auto;">
     </div>
 </body>
 </html>

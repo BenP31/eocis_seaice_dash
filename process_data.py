@@ -1,3 +1,4 @@
+import json
 import os
 import re
 
@@ -63,6 +64,23 @@ def get_data_files(folder: str):
         yield f
 
 
+def load_json_file(filepath: str) -> dict:
+    if not os.path.exists(filepath):
+        return {}
+
+    with open(filepath, "r") as fp:
+        my_json = json.load(fp)
+        return {
+            x["id"]: {"fileName": x["fileName"], "displayName": x["displayName"]} for x in my_json
+        }
+
+
+def save_json_file(filepath: str, data: dict) -> None:
+    out_json = [{"id": k} | v for k, v in data.items()]
+    with open(filepath, "+w") as fp:
+        json.dump(out_json, fp)
+
+
 def time_to_ts(time):
     start_of_year = datetime(year=int(time // 1), month=1, day=1)
     end_of_year = datetime(year=int(time // 1) + 1, month=1, day=1)
@@ -90,7 +108,8 @@ if __name__ == "__main__":
     time_series_file = os.path.join(argv.processed_file_dir, "time_series_data.csv")
     aux_file_dir = argv.aux_file_dir
 
-    image_files = glob("*.png", root_dir=image_dir)
+    images_json_path = os.path.join(argv.processed_file_dir, "image_list.json")
+    image_files = load_json_file(images_json_path)
 
     seaice_files = get_data_files(data_file_dir)
 
@@ -110,7 +129,7 @@ if __name__ == "__main__":
         # 199107-199607
         file_year = file_date[0:4]
         file_month = file_date[4:6]
-        fmt_year = f"{file_year}/{file_month}"
+        fmt_year = f"{file_month}/{file_year}"
 
         # load nc
         nc = Dataset(file_name)
@@ -125,22 +144,23 @@ if __name__ == "__main__":
 
         all_data.append(
             {
-                "code": file_date,
                 "year": file_year,
                 "season_year": int(file_year) - month_key[str(file_month)]["winter_year"],
                 "month": midpoint.strftime("%B"),
-                "region": "Arctic",
                 "thickness": mean_thickness,
             }
         )
 
-        if file_date + ".png" not in image_files:
+        if file_date not in image_files:
             # generate image and save in images folder
             fig = plot_arco_thickness(x_values, y_values, thickness)
 
             fig_file_path = os.path.join(image_dir, file_date + ".png")
             print(f"Saving figure to {fig_file_path}")
             fig.savefig(fig_file_path)
+            image_files.update(
+                {file_date: {"fileName": file_date + ".png", "displayName": fmt_year}}
+            )
             plt.close()
 
     # print all data to csv file
@@ -149,3 +169,5 @@ if __name__ == "__main__":
 
     # save dataframe
     df.to_csv(time_series_file, sep=",", index=False)
+
+    save_json_file(images_json_path, image_files)

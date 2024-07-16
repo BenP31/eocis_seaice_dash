@@ -124,16 +124,16 @@ function plot() {
 }
 
 function main() {
+    const imageSelect = document.getElementById('imageSelect');
+    const displayImage = document.getElementById('displayImage');
 
 
-    fetch("processed_files/time_series_data.csv").then(r => r.text()).then(txt => {
+    fetch("processed_files/sea_ice_thickness.csv").then(r => r.text()).then(txt => {
         data = txt;
-        console.log(data);
 
         plot();
 
         window.addEventListener("resize", (evt) => { plot(); });
 
     });
-
 }
