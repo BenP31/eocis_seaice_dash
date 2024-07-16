@@ -10,10 +10,7 @@ function plot() {
         let r = document.getElementById("vizdiv").getBoundingClientRect();
         let h = r.height;
         let w = r.width;
-        
-        
-        console.log("height=" + h + ",width=" + w);
-        
+                
         let spec = {
             '$schema': 'https://vega.github.io/schema/vega-lite/v5.6.1.json',
             'config': {'view': {'continuousWidth': 300, 'continuousHeight': 300}},
@@ -28,7 +25,8 @@ function plot() {
                             'field': 'season_year',
                             'legend': {'title': 'Season year'},
                             'type': 'nominal',
-                            'scale': {"scheme":"tealblues"}
+                            'scale': {"scheme":"redyellowblue", 'sort':"descending"},
+                            'sort': "descending",
                         },
                         'opacity': {
                             'condition': {'param': 'year_select', 'value': 1}, 
@@ -50,6 +48,7 @@ function plot() {
                             'title': 'Time Period',
                             'type': 'nominal',
                             'sort': {"field": "season_month"},
+                            'stack':null,
                         },
                         'y': {
                             'field': 'thickness',
@@ -57,7 +56,8 @@ function plot() {
                             'type': 'quantitative',
                             'scale': {
                                 'domain': [0, 3.5]
-                            }
+                            },
+                            'stack':null,
                         }
                     },
                     'name': 'view_4',
@@ -69,7 +69,9 @@ function plot() {
                         'color': {
                             'field': 'season_year',
                             'legend': {'title': 'Season year'},
-                            'type': 'nominal'
+                            'type': 'nominal',
+                            'sort': "descending",
+                            'scale': {'sort':"descending"},
                         },
                         'opacity': {
                             'condition': {'param': 'year_select', 'value': 1}, 
