@@ -30,8 +30,8 @@ month_key = {
 def plot_arco_thickness(x, y, values):
     crs_new = ccrs.NorthPolarStereo(central_longitude=0)
 
-    fig = plt.figure(figsize=(9, 7))
-    ax = plt.axes(facecolor="whitesmoke", projection=crs_new)
+    fig = plt.figure(figsize=(10, 7))
+    ax = plt.axes(facecolor="white", projection=crs_new)
 
     ax.coastlines(resolution="110m", linewidth=0.5)
 
@@ -47,14 +47,14 @@ def plot_arco_thickness(x, y, values):
         values,
         vmax=3.5,
         vmin=0,
-        cmap="Blues",
+        cmap="viridis",
         transform=ccrs.Stereographic(
             central_latitude=90, central_longitude=-45, true_scale_latitude=70
         ),
         shading="gouraud",
     )
     ax.add_feature(cartopy.feature.LAND, color="gainsboro", zorder=1)
-    fig.colorbar(cs, ax=ax)
+    fig.colorbar(cs, ax=ax, label="Thickness(m)", extend="both")
 
     return fig
 
